@@ -25,6 +25,9 @@ function renderPokemons(pokemons) {
         img.src = pokemon.sprites.front_default;
         card.appendChild(img);
         grid.appendChild(card);
+        card.addEventListener('click', () => {
+            window.location.href = `details.html?id=${pokemon.id}`;
+        });
     });
 }
 
