@@ -17,9 +17,6 @@ function renderPokemons(pokemons) {
         const nom = document.createElement('p');
         nom.textContent = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
         card.appendChild(nom);
-        const id = document.createElement('p');
-        id.textContent = pokemon.id;
-        card.appendChild(id);
         const img = document.createElement('img');
         img.src = pokemon.sprites.front_default;
         card.appendChild(img);
