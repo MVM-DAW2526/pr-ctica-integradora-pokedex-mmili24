@@ -1,12 +1,21 @@
 let wildPokemon = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-  
+
   document.getElementById('huntZone').addEventListener('click', async () => {
       try {
           const rndmPkmn = Math.floor(Math.random() * 151) + 1;
           const data = await fetchPokemon(rndmPkmn);
-          wildPokemon = data;
+          wildPokemon = new WildPokemon(
+              data.id,
+              data.name,
+              data.types,
+              data.height,
+              data.weight,
+              data.stats,
+              data.abilities,
+              data.sprites.front_default
+          );
           const img = document.getElementById('wildPokemonImg');
           img.src = data.sprites.front_default;
           img.classList.add('silhouette');
