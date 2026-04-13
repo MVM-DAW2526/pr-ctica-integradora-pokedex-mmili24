@@ -1,45 +1,53 @@
-/**
- * api.js — Capa d'accés a la PokéAPI.
- * Aquest és l'ÚNIC fitxer que fa crides fetch.
- * Implementa les funcions; la resta de mòduls les importaran.
- */
-
 const BASE_URL = 'https://pokeapi.co/api/v2';
 
-/**
- * Retorna la llista dels primers 151 Pokémon.
- * Endpoint: GET /pokemon?limit=151
- * @returns {Promise<Array<{name: string, url: string}>>}
- */
 async function fetchPokemonList() {
-    // TODO
+    try {
+        const resposta = await fetch(`${BASE_URL}/pokemon/?limit=151`);
+        if (!resposta.ok) {
+            throw new Error("Pokémon no trobat a la regió!");
+        }
+        const pokemonList = await resposta.json();
+        return pokemonList.results;
+    } catch (error) {
+        console.error(`❌ Error de la Pokédex: ${error.message}`);
+    }
 }
 
-/**
- * Retorna les dades completes d'un Pokémon.
- * Endpoint: GET /pokemon/{idOrName}
- * @param {string|number} idOrName
- * @returns {Promise<Object>}
- */
 async function fetchPokemon(idOrName) {
-    // TODO
+    try {
+        const resposta = await fetch(`${BASE_URL}/pokemon/${idOrName}`);
+        if (!resposta.ok) {
+            throw new Error("Pokémon no trobat!");
+        }
+        const pokemon = await resposta.json();
+        return pokemon;
+    } catch (error) {
+        console.error(`❌ Error de la Pokédex: ${error.message}`);
+    }
 }
 
-/**
- * Retorna les dades d'espècie (inclou URL cadena evolutiva).
- * Endpoint: GET /pokemon-species/{id}
- * @param {number} id
- * @returns {Promise<Object>}
- */
 async function fetchSpecies(id) {
-    // TODO
+    try {
+        const resposta = await fetch(`${BASE_URL}/pokemon-species/${id}`);
+        if (!resposta.ok) {
+            throw new Error("Especie no trobada!");
+        }
+        const especie = await resposta.json();
+        return especie;
+    } catch (error) {
+        console.error(`❌ Error de la Pokédex: ${error.message}`);
+    }
 }
 
-/**
- * Retorna la cadena evolutiva donada la seva URL completa.
- * @param {string} url
- * @returns {Promise<Object>}
- */
 async function fetchEvolutionChain(url) {
-    // TODO
+    try {
+        const resposta = await fetch(url);
+        if (!resposta.ok) {
+            throw new Error("Evolució no trobada!");
+        }
+        const evolution = await resposta.json();
+        return evolution;
+    } catch (error) {
+        console.error(`❌ Error de la Pokédex: ${error.message}`);
+    }
 }
