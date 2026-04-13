@@ -38,10 +38,25 @@ function renderPokemonDetails(pokemonData, speciesData, evolutionData) {
         movesDiv.appendChild(moveElement);
     });
 
+    renderEvolution(evolutionData);
+}
+
+async function renderEvolution(evolutionData) {
     const evolutionDiv = document.getElementById('pokemonEvolution');
-    const evoName = document.createElement('p');
-    evoName.textContent = evolutionData.chain.species.name;
-    evolutionDiv.appendChild(evoName);
+    const chain = [];
+    let current = evolutionData.chain;
+    
+    while (current) {
+        chain.push(current.species.name);
+        current = current.evolves_to[0];
+    }
+    for (const name of chain) {
+        const data = await fetchPokemon(name);
+        const img = document.createElement('img');
+        img.src = data.sprites.front_default;
+        img.alt = name;
+        evolutionDiv.appendChild(img);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', loadPokemonDetails);
